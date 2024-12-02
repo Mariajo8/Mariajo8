@@ -1,0 +1,245 @@
+
+...................1.................
+import java.util.Scanner;
+
+public class Main.java
+{
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el costo fijo diario (Bs): ");
+        double costoFijo = scanner.nextDouble();
+
+        System.out.print("Ingrese el costo variable por sombrero (Bs): ");
+        double costoVariable = scanner.nextDouble();
+
+        System.out.print("Ingrese el costo máximo permitido por sombrero (Bs): ");
+        double costoMaximo = scanner.nextDouble();
+
+        int cantidadMinima = calcularCantidadMinima(costoFijo, costoVariable, costoMaximo);
+
+        mostrarResultado(cantidadMinima);
+
+        scanner.close();
+    }
+
+    public static int calcularCantidadMinima(double costoFijo, double costoVariable, double costoMaximo) {
+        if (costoMaximo <= costoVariable) {
+            return -1;
+        }
+        return (int) Math.ceil(costoFijo / (costoMaximo - costoVariable));
+    }
+
+    public static void mostrarResultado(int cantidadMinima) {
+        if (cantidadMinima == -1) {
+            System.out.println("No es posible producir sombreros con el costo deseado.");
+        } else {
+            System.out.println("La cantidad mínima de sombreros que debe producir es: " + cantidadMinima);
+}
+}
+}
+
+
+...................2.......
+ 
+import java.util.Scanner;
+
+public class LoteriaEstudiantil
+{
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Ingrese los 20 números de la ficha separados por espacio:");
+        int[] ficha = new int[20];
+        for (int i = 0; i < 20; i++) {
+            ficha[i] = scanner.nextInt();
+        }
+
+        int puntosTotales = calcularPuntosFicha(ficha);
+
+        verificarFichaGanadora(puntosTotales);
+
+        scanner.close();
+    }
+
+    public static int calcularPuntosFicha(int[] ficha) {
+        int puntos = 0;
+        for (int numero : ficha) {
+            if (esPrimo(numero)) {
+                puntos += 4; 
+            }
+            if (numero % 2 == 0) {
+                puntos += 1; 
+            }
+            if (numero % 7 == 0) {
+                puntos += 2;
+            }
+        }
+        return puntos;
+    }
+
+    public static boolean esPrimo(int numero) {
+        if (numero < 2) {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(numero); i++) {
+            if (numero % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void verificarFichaGanadora(int puntosTotales) {
+        if (puntosTotales > 70) {
+            System.out.println("¡Ficha ganadora! Total de puntos: " + puntosTotales);
+        } else {
+            System.out.println("Ficha no ganadora. Total de puntos: " + puntosTotales);
+ }
+        
+    }
+}
+
+.............................3.....
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese un número del estudiante :");
+        int n = scanner.nextInt();
+        if (esNumeroEspejo(n)) {
+            System.out.println(n + " Te toco ir a las clases presenciales ");
+        } else {
+            System.out.println(n + " Te qedas en casita,i pero a estudiar! ");
+        }
+    }
+
+    public static boolean esNumeroEspejo(int n) {
+        int espejo = 0;
+        int original = n;
+        while (n > 0) {
+            int digito = n % 10;
+            espejo = espejo * 10 + digito;
+            
+            n /= 10;
+        }
+        return espejo == original;
+}
+}
+...................4..................
+
+import java.util.Random;
+
+public class ClasificacionEstudiantes {
+
+    public static void main(String[] args) {
+        int totalEstudiantes = 1000;
+        int grupo1 = 0, grupo2 = 0, grupo3 = 0, grupo4 = 0;
+
+        int[] edades = generarEdades(totalEstudiantes, 10, 17);
+
+        for (int edad : edades) {
+            if (esGrupo1(edad)) {
+                grupo1++;
+            } else if (esGrupo2(edad)) {
+                grupo2++;
+            } else if (esGrupo3(edad)) {
+                grupo3++;
+            } else {
+                grupo4++;
+            }
+        }
+
+        mostrarResultados(grupo1, grupo2, grupo3, grupo4);
+    }
+
+    public static int[] generarEdades(int total, int min, int max) {
+        Random random = new Random();
+        int[] edades = new int[total];
+        for (int i = 0; i < total; i++) {
+            edades[i] = random.nextInt(max - min + 1) + min;
+        }
+        return edades;
+    }
+
+    public static boolean esGrupo1(int edad) {
+        return edad % 5 == 0 && edad % 2 != 0;
+    }
+
+    public static boolean esGrupo2(int edad) {
+        return edad % 4 == 0;
+    }
+
+    public static boolean esGrupo3(int edad) {
+        return edad % 3 == 0 && edad % 4 != 0 && edad % 5 != 0 && edad % 2 != 0;
+    }
+
+    public static void mostrarResultados(int grupo1, int grupo2, int grupo3, int grupo4) {
+        System.out.println("Resultados de clasificación:");
+        System.out.println("Grupo 1 (múltiplos de 5, no de 2): " + grupo1);
+        System.out.println("Grupo 2 (múltiplos de 4): " + grupo2);
+        System.out.println("Grupo 3 (múltiplos de 3, no de 4, 5 ni 2): " + grupo3);
+        System.out.println("Grupo 4 (resto): " + grupo4);
+        }
+}
+
+
+.......................5...........
+
+
+import java.util.Scanner;
+
+public class NotasEstudiantes {
+
+    public static void ingresarNotas(double[] notas) {
+        Scanner scanner = new Scanner(System.in);
+        for (int i = 0; i < notas.length; i++) {
+            System.out.print("Ingresa la nota del estudiante " + (i + 1) + ": ");
+            notas[i] = scanner.nextDouble();
+        }
+    }
+
+    public static void mostrarNotas(double[] notas) {
+        System.out.println("Notas ingresadas:");
+        for (double nota : notas) {
+            System.out.print(nota + " ");
+        }
+        System.out.println();
+    }
+
+    public static double calcularPromedio(double[] notas) {
+        double suma = 0;
+        for (double nota : notas) {
+            suma += nota;
+        }
+        return suma / notas.length;
+    }
+
+    public static void mostrarMayorYMenor(double[] notas) {
+        double mayor = notas[0];
+        double menor = notas[0];
+        for (double nota : notas) {
+            if (nota > mayor) {
+                mayor = nota;
+            }
+            if (nota < menor) {
+                menor = nota;
+            }
+        }
+        System.out.println("Nota más alta: " + mayor);
+        System.out.println("Nota más baja: " + menor);
+    }
+
+    public static void main(String[] args) {
+        double[] notas = new double[10];
+
+        ingresarNotas(notas);
+        mostrarNotas(notas);
+        double promedio = calcularPromedio(notas);
+        System.out.println("El promedio de las notas es: " + promedio);
+        mostrarMayorYMenor(notas);
+    }
+}
